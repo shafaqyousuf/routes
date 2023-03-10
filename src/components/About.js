@@ -1,24 +1,38 @@
-import React from 'react'
-import { useState } from 'react';
-import axios from 'axios';
-import Button from '../components/Button';
-const About = () => {
-    let api = "https://jsonplaceholder.typicode.com/users";
-    const [user, setUser] = useState([]);
+import React, { useEffect, useState } from 'react'
+import { Get } from './apihandle';
+import Table from './Table';
 
-    const getApiData = () => {
-        axios.get(api).then((res) => { setUser([...res.data]) }).catch((err) => { console.log(err) })
+const About = () => {
+    let [user, setUser] = useState([]);
+    let col = [
+        {
+            displayName: "Name",
+            key: "name"
+        },
+        {
+            displayName: "Email",
+            key: "email"
+        },
+        {
+            displayName: "Contact#",
+            key: "phone"
+        },
+        {
+            displayName: "Website",
+            key: "website"
+        }
+    ];
+
+    let getUser = () => {
+        Get("users").then((res) => { setUser([...res.data]) }).catch((err) => { console.log(err) })
+        console.log(user)
     }
-  return (
-    <div className='bg-dark text-white'>
-    <h1>About</h1>
-    {user.map((x,i)=>{
-                return <div key={i}>
-                <p>{x.id}:{x.email}</p>
-                </div>
-            })}
-            <Button label="get users" onClick={getApiData} />
-        </div>
+    useEffect(() => { getUser() }, [])
+    return (
+        <>
+            <Table title="Users Data" col={col} dataSource={user} />
+        </>
     )
 }
+
 export default About;

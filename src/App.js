@@ -1,3 +1,4 @@
+
 import './App.css';
 import react from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -9,6 +10,8 @@ import Album from './components/Album';
 import Photos from './components/Photos';
 import Todos from './components/Todos';
 import Singlephoto from './components/Singlephoto';
+import Table from './components/Table';
+import Dashboard from './components/Dashboard';
 
 function App() {
   return (
@@ -21,7 +24,8 @@ function App() {
           <Route exact path='Album' element={<Album/>} />
           <Route exact path='Photos' element={<Photos/>} />
           <Route exact path='Todos' element={<Todos/>} />
-          <Route exact path='Photos/:id' element={<Singlephoto/>} />
+          <Route exact path='SinglePhoto/:id' element={<Singlephoto/>} />
+          <Route exact path='Dashboard/*' element={<Dashboard/>} />
         </Routes>
       </BrowserRouter>
     </>
